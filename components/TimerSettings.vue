@@ -48,7 +48,7 @@ const config = ref(props.defaultConfig);
             />
         </div>
         <button
-            class="rounded-sm bg-black px-4 py-2"
+            class="rounded-sm bg-black px-4 py-2 text-white"
             @click="$emit('update-config', Object.assign({}, config))"
         >
             Confirm

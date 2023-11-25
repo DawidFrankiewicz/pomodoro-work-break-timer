@@ -14,28 +14,22 @@ const isSidebarOpen = ref(false);
         class="relative min-h-screen flex-grow bg-slate-900 bg-gradient-to-br from-slate-900 to-blue-900 text-center text-white"
     >
         <Timer :config="config" />
-        <div class="fixed left-0 top-0 h-screen bg-blue-300">
+        <div
+            class="fixed left-0 top-0 h-screen pl-6 pt-6 text-black opacity-40 transition-all hover:opacity-100"
+            :class="isSidebarOpen ? '' : '-translate-x-full'"
+        >
             <button
                 @click="isSidebarOpen = !isSidebarOpen"
-                class="right-0 top-6 h-16 w-16 translate-x-full rounded-e-md bg-slate-600"
+                class="absolute right-0 top-12 h-16 w-16 translate-x-full rounded-e-md bg-purple-200"
             >
-                <font-awesome-icon
-                    :icon="['fas', 'gear']"
-                    class="fa-2xl fa-black text-slate-300"
-                />
+                <font-awesome-icon :icon="['fas', 'gear']" class="fa-2xl" />
             </button>
-            <Transition name="fade">
-                <div
-                    v-if="isSidebarOpen"
-                    v-click-outside="() => (isSidebarOpen = false)"
-                    class="left-0 top-0 h-screen bg-red-500 transition-all"
-                >
-                    <TimerSettings
-                        :defaultConfig="Object.assign({}, config)"
-                        @update-config="(newConfig) => (config = newConfig)"
-                    />
-                </div>
-            </Transition>
+            <div class="rounded-md bg-purple-200">
+                <TimerSettings
+                    :defaultConfig="Object.assign({}, config)"
+                    @update-config="(newConfig) => (config = newConfig)"
+                />
+            </div>
         </div>
     </div>
 </template>
