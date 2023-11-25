@@ -6,7 +6,9 @@ const props = defineProps({
     },
 });
 
+const totalTimer = ref(0);
 const timer = ref(props.config.workTime);
+const isTimerRunning = ref(false);
 const isWorkTime = ref(true);
 
 const minutesToSeconds = (minutes) => minutes * 60;
@@ -40,8 +42,11 @@ const displayTime = (timeInSeconds, displayHours = false) => {
     );
 };
 
+let timerInterval;
+
 const startTimer = () => {
-    const interval = setInterval(() => {
+    isTimerRunning.value = true;
+    timerInterval = setInterval(() => {
         if (timer.value === 0) {
             if (isWorkTime.value) {
                 startBreak();
@@ -50,12 +55,19 @@ const startTimer = () => {
             }
         } else {
             timer.value--;
+            totalTimer.value++;
         }
     }, 1000);
 
     onUnmounted(() => {
-        clearInterval(interval);
+        isTimerRunning.value = false;
+        clearInterval(timerInterval);
     });
+};
+
+const stopTimer = () => {
+    isTimerRunning.value = false;
+    clearInterval(timerInterval);
 };
 
 const startBreak = () => {
@@ -77,7 +89,12 @@ const startWork = () => {
         <div
             class="rounded-sm bg-slate-500 bg-opacity-30 px-6 py-5 text-3xl font-bold"
         >
-            {{ displayTime(timer, true) }}
+            Total: {{ displayTime(totalTimer, true) }}
+        </div>
+        <div
+            class="rounded-sm bg-slate-500 bg-opacity-30 px-6 py-5 text-3xl font-bold"
+        >
+            {{ (isWorkTime ? 'Work: ' : 'Brake: ') + displayTime(timer, true) }}
         </div>
         <div
             v-if="props.config.breakTime"
@@ -103,5 +120,11 @@ const startWork = () => {
         >
             Rounds: {{ props.config.isInfinite }}
         </div>
+        <button
+            @click="isTimerRunning ? stopTimer() : startTimer()"
+            class="bg-red-600 p-4"
+        >
+            Stop/Start
+        </button>
     </div>
 </template>

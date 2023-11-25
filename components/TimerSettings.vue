@@ -12,7 +12,7 @@ const config = ref(props.defaultConfig);
 </script>
 
 <template>
-    <div class="fixed left-0 top-0 flex flex-col gap-2 bg-red-500 p-4">
+    <div class="flex flex-col gap-2 p-4">
         <h1 class="text-xl font-bold">Timer Settings</h1>
         <div>
             Work Time (Minutes)
