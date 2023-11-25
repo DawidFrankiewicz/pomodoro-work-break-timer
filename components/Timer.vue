@@ -1,37 +1,25 @@
 <script setup>
 const props = defineProps({
-    workTimeInMinutes: {
-        type: Number,
-        required: false,
-        default: 0.15,
-    },
-    breakTimeInMinutes: {
-        type: Number,
-        required: false,
-        default: 0.1,
-    },
-    totalTimeInMinutes: {
-        type: Number,
-        required: false,
-        default: null,
+    config: {
+        type: Object,
+        required: true,
     },
 });
 
-const timer = ref(0);
+const timer = ref(props.config.workTime);
 const isWorkTime = ref(true);
 
 const minutesToSeconds = (minutes) => minutes * 60;
 
-const workTime = minutesToSeconds(props.workTimeInMinutes);
-const breakTime = minutesToSeconds(props.breakTimeInMinutes);
+const workTime = ref(props.config.workTime);
+const breakTime = ref(props.config.breakTime);
 
 onMounted(() => {
-    timer.value = workTime;
     startTimer();
 });
 
 const displayTime = (timeInSeconds, displayHours = false) => {
-    const hours = displayHours ? Math.floor(timeInSeconds / 3600) : null;
+    const hours = Math.floor(timeInSeconds / 3600);
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
 
@@ -92,16 +80,28 @@ const startWork = () => {
             {{ displayTime(timer, true) }}
         </div>
         <div
-            v-if="breakTimeInMinutes"
+            v-if="props.config.breakTime"
             class="rounded-sm bg-slate-500 bg-opacity-30 px-6 py-5 text-3xl font-bold"
         >
-            Break time: {{ displayTime(breakTime) }}
+            Break time: {{ displayTime(props.config.breakTime) }}
         </div>
         <div
-            v-if="breakTimeInMinutes"
+            v-if="props.config.workTime"
             class="rounded-sm bg-slate-500 bg-opacity-30 px-6 py-5 text-3xl font-bold"
         >
-            Work time: {{ displayTime(workTime) }}
+            Work time: {{ displayTime(props.config.workTime) }}
+        </div>
+        <div
+            v-if="props.config.totalRounds"
+            class="rounded-sm bg-slate-500 bg-opacity-30 px-6 py-5 text-3xl font-bold"
+        >
+            Rounds: {{ props.config.totalRounds }}
+        </div>
+        <div
+            v-if="props.config.isInfinite !== undefined"
+            class="rounded-sm bg-slate-500 bg-opacity-30 px-6 py-5 text-3xl font-bold"
+        >
+            Rounds: {{ props.config.isInfinite }}
         </div>
     </div>
 </template>
