@@ -1,9 +1,9 @@
-<script setup>
-const timer = ref(0);
+<script lang="ts" setup>
+const timer = ref<number>(0);
 
 onMounted(() => {
     setInterval(() => {
-        timer.value++;
+        timer.value += 1;
     }, 1000);
 });
 </script>
