@@ -9,7 +9,7 @@ const config = ref({
 
 <template>
     <div
-        class="relative min-h-screen flex-grow bg-orange-200 bg-gradient-to-br from-orange-200 to-orange-300"
+        class="relative min-h-screen flex-grow bg-gray-100 bg-gradient-to-br from-gray-100 to-gray-200"
     >
         <Timer :config="config" />
 
