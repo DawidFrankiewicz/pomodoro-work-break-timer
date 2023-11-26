@@ -6,24 +6,26 @@ const props = defineProps({
     },
 });
 
+const workTime = ref(props.config.workTime);
+const breakTime = ref(props.config.breakTime);
+
+const timer = ref(workTime.value);
 const totalTimer = ref(0);
-const timer = ref(props.config.workTime);
-
-// do something when config.workTime changes
-watch(
-    () => props.config.workTime,
-    (newValue) => {
-        if (isWorkTime.value) {
-            timer.value = newValue;
-        }
-    }
-);
-
 const isTimerRunning = ref(false);
 const isWorkTime = ref(true);
 
-const workTime = ref(props.config.workTime);
-const breakTime = ref(props.config.breakTime);
+let timerInterval;
+
+watch(
+    () => props.config,
+    () => {
+        resetTimer();
+    }
+);
+
+onUnmounted(() => {
+    stopTimer();
+});
 
 const displayTime = (timeInSeconds, displayHours = false) => {
     const hours = Math.floor(timeInSeconds / 3600);
@@ -47,7 +49,12 @@ const displayTime = (timeInSeconds, displayHours = false) => {
     );
 };
 
-let timerInterval;
+const resetTimer = () => {
+    stopTimer();
+    totalTimer.value = 0;
+    timer.value = workTime.value;
+    isWorkTime.value = true;
+};
 
 const startTimer = () => {
     isTimerRunning.value = true;
@@ -63,11 +70,6 @@ const startTimer = () => {
             totalTimer.value++;
         }
     }, 1000);
-
-    onUnmounted(() => {
-        isTimerRunning.value = false;
-        clearInterval(timerInterval);
-    });
 };
 
 const stopTimer = () => {
