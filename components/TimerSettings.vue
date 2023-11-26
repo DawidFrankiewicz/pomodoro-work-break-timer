@@ -9,6 +9,20 @@ const props = defineProps({
 const emit = defineEmits(['update-config']);
 const isConfigOpen = ref(false);
 const config = ref(props.defaultConfig);
+
+const displayTime = (timeInSeconds) => {
+    const hours = Math.floor(timeInSeconds / 3600);
+    const minutes = Math.floor(timeInSeconds / 60) % 60;
+    const seconds = timeInSeconds % 60;
+
+    return (
+        String(hours).padStart(2, '0') +
+        ':' +
+        String(minutes).padStart(2, '0') +
+        ':' +
+        String(seconds).padStart(2, '0')
+    );
+};
 </script>
 
 <template>
@@ -59,7 +73,7 @@ const config = ref(props.defaultConfig);
                         class="transition-all duration-75"
                         :class="
                             config.isInfinite
-                                ? 'pointer-events-none rounded-md bg-purple-200 p-2 opacity-40'
+                                ? 'pointer-events-none rounded-md bg-purple-200 p-2 py-[10px] opacity-40'
                                 : ''
                         "
                     >
@@ -74,6 +88,22 @@ const config = ref(props.defaultConfig);
                         />
                     </div>
                 </div>
+
+                <div
+                    class="text-sm font-bold transition-all duration-75"
+                    :class="
+                        config.isInfinite ? 'h-0 opacity-0' : 'h-5 opacity-100'
+                    "
+                >
+                    Total time:
+                    {{
+                        displayTime(
+                            config.workTime * config.totalRounds +
+                                config.breakTime * config.totalRounds
+                        )
+                    }}
+                </div>
+
                 <div class="flex min-h-[50px]">
                     <button
                         class="flex-grow rounded-t-md border-b-4 border-r-4 border-purple-800 bg-red-200 bg-gradient-to-br from-teal-200 to-teal-300 px-4 text-xl font-bold shadow-sm transition-all duration-75 hover:ml-[2px] hover:mt-[2px] hover:border-b-2 hover:border-r-2"
