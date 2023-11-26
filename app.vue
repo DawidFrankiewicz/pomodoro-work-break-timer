@@ -5,36 +5,18 @@ const config = ref({
     totalRounds: 20,
     isInfinite: false,
 });
-
-const isSidebarOpen = ref(false);
 </script>
 
 <template>
     <div
-        class="relative min-h-screen flex-grow bg-slate-900 bg-gradient-to-br from-slate-900 to-blue-900 text-center text-white"
+        class="relative min-h-screen flex-grow bg-orange-200 bg-gradient-to-br from-orange-200 to-orange-300"
     >
         <Timer :config="config" />
-        <div
-            class="fixed left-0 top-0 h-screen pl-6 pt-6 text-black transition-all hover:opacity-100"
-            :class="
-                isSidebarOpen ? 'opacity-100' : '-translate-x-full opacity-40'
-            "
-        >
-            <button
-                @click="isSidebarOpen = !isSidebarOpen"
-                class="absolute right-0 top-12 h-16 w-16 translate-x-full rounded-e-md bg-purple-200 bg-gradient-to-bl from-purple-200 to-purple-400"
-            >
-                <font-awesome-icon :icon="['fas', 'gear']" class="fa-2xl" />
-            </button>
-            <div
-                class="rounded-md bg-purple-200 bg-gradient-to-br from-purple-200 to-purple-400"
-            >
-                <TimerSettings
-                    :defaultConfig="Object.assign({}, config)"
-                    @update-config="(newConfig) => (config = newConfig)"
-                />
-            </div>
-        </div>
+
+        <TimerSettings
+            :defaultConfig="Object.assign({}, config)"
+            @update-config="(newConfig) => (config = newConfig)"
+        />
     </div>
 </template>
 

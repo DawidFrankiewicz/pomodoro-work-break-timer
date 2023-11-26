@@ -8,17 +8,22 @@ const props = defineProps({
 
 const totalTimer = ref(0);
 const timer = ref(props.config.workTime);
+
+// do something when config.workTime changes
+watch(
+    () => props.config.workTime,
+    (newValue) => {
+        if (isWorkTime.value) {
+            timer.value = newValue;
+        }
+    }
+);
+
 const isTimerRunning = ref(false);
 const isWorkTime = ref(true);
 
-const minutesToSeconds = (minutes) => minutes * 60;
-
 const workTime = ref(props.config.workTime);
 const breakTime = ref(props.config.breakTime);
-
-onMounted(() => {
-    startTimer();
-});
 
 const displayTime = (timeInSeconds, displayHours = false) => {
     const hours = Math.floor(timeInSeconds / 3600);
@@ -122,7 +127,7 @@ const startWork = () => {
         </div>
         <button
             @click="isTimerRunning ? stopTimer() : startTimer()"
-            class="bg-red-600 p-4"
+            class="bg-red-600 p-4 text-white"
         >
             Stop/Start
         </button>
