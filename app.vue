@@ -15,8 +15,10 @@ const isSidebarOpen = ref(false);
     >
         <Timer :config="config" />
         <div
-            class="fixed left-0 top-0 h-screen pl-6 pt-6 text-black opacity-40 transition-all hover:opacity-100"
-            :class="isSidebarOpen ? 'opacity-100' : '-translate-x-full'"
+            class="fixed left-0 top-0 h-screen pl-6 pt-6 text-black transition-all hover:opacity-100"
+            :class="
+                isSidebarOpen ? 'opacity-100' : '-translate-x-full opacity-40'
+            "
         >
             <button
                 @click="isSidebarOpen = !isSidebarOpen"

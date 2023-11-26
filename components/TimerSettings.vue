@@ -56,7 +56,7 @@ const config = ref(props.defaultConfig);
         </div>
         <div class="flex min-h-[50px]">
             <button
-                class="flex-grow rounded-t-md border-b-4 border-r-4 border-purple-800 bg-red-200 px-4 text-xl font-bold text-slate-950 shadow-sm transition-all hover:ml-[2px] hover:mt-[2px] hover:border-b-2 hover:border-r-2"
+                class="flex-grow rounded-t-md border-b-4 border-r-4 border-purple-800 bg-red-200 px-4 text-xl font-bold text-slate-950 shadow-sm transition-all duration-75 hover:ml-[2px] hover:mt-[2px] hover:border-b-2 hover:border-r-2"
                 @click="$emit('update-config', Object.assign({}, config))"
             >
                 Apply
