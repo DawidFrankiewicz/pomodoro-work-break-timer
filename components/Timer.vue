@@ -27,7 +27,7 @@ const breakTime = ref(props.config.breakTime);
 
 const displayTime = (timeInSeconds, displayHours = false) => {
     const hours = Math.floor(timeInSeconds / 3600);
-    const minutes = Math.floor(timeInSeconds / 60);
+    const minutes = Math.floor(timeInSeconds / 60) % 60;
     const seconds = timeInSeconds % 60;
 
     if (displayHours) {
@@ -52,7 +52,7 @@ let timerInterval;
 const startTimer = () => {
     isTimerRunning.value = true;
     timerInterval = setInterval(() => {
-        if (timer.value === 0) {
+        if (timer.value <= 0) {
             if (isWorkTime.value) {
                 startBreak();
             } else {
@@ -76,12 +76,12 @@ const stopTimer = () => {
 };
 
 const startBreak = () => {
-    timer.value = breakTime;
+    timer.value = breakTime.value;
     isWorkTime.value = false;
 };
 
 const startWork = () => {
-    timer.value = workTime;
+    timer.value = workTime.value;
     isWorkTime.value = true;
 };
 </script>
