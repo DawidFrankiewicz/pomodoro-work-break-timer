@@ -30,7 +30,7 @@ const emit = defineEmits(['update']);
     <div class="flex gap-1">
         <input
             :disabled="disabled"
-            class="input-no-buttons w-10 grow appearance-none py-1 text-center text-black transition-colors"
+            class="w-10 grow py-1 text-center text-black transition-colors"
             type="number"
             :value="value"
             :min="min"
@@ -55,3 +55,18 @@ const emit = defineEmits(['update']);
         </button>
     </div>
 </template>
+
+<style lang="scss" scoped>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+</style>
