@@ -20,19 +20,19 @@ const config = ref(props.defaultConfig);
         <!-- Open button -->
         <button
             @click="isConfigOpen = !isConfigOpen"
-            class="absolute right-0 top-12 h-16 w-16 translate-x-full rounded-e-md bg-purple-200 bg-gradient-to-bl from-purple-200 to-purple-400"
+            class="absolute right-0 top-12 z-0 h-16 w-16 translate-x-full rounded-e-md bg-purple-200 bg-gradient-to-bl from-purple-200 to-purple-400 shadow-md"
         >
             <font-awesome-icon :icon="['fas', 'gear']" class="fa-2xl" />
         </button>
         <!-- End Open button -->
         <!-- Config bar -->
         <div
-            class="rounded-md bg-purple-200 bg-gradient-to-br from-purple-200 to-purple-400"
+            class="relative z-10 rounded-md bg-purple-200 bg-gradient-to-br from-purple-200 to-purple-400 shadow-xl"
         >
             <div class="flex flex-col gap-2 p-4 text-slate-900">
                 <h1 class="text-center text-xl font-bold">Timer Settings</h1>
                 <div class="mb-2 flex flex-col gap-2">
-                    <FormNumberInput
+                    <FormInputNumber
                         label="Work Time (Min)"
                         :value="config.workTime / 60"
                         :min="1"
@@ -40,7 +40,7 @@ const config = ref(props.defaultConfig);
                             (newValue) => (config.workTime = newValue * 60)
                         "
                     />
-                    <FormNumberInput
+                    <FormInputNumber
                         label="Break Time (Min)"
                         :value="config.breakTime / 60"
                         :min="1"
@@ -61,7 +61,7 @@ const config = ref(props.defaultConfig);
                                 : ''
                         "
                     >
-                        <FormNumberInput
+                        <FormInputNumber
                             label="Rounds"
                             :value="config.totalRounds"
                             :disabled="config.isInfinite"
