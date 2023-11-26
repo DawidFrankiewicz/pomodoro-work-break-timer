@@ -80,6 +80,10 @@ const config = ref(props.defaultConfig);
                         "
                     >
                         Apply
+                        <font-awesome-icon
+                            :icon="['fas', 'refresh']"
+                            class="ml-2"
+                        />
                     </button>
                 </div>
             </div>
