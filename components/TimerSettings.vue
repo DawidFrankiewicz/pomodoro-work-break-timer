@@ -9,6 +9,8 @@ const props = defineProps({
 const emit = defineEmits(['update-config']);
 const isConfigOpen = ref(false);
 const config = ref(props.defaultConfig);
+const applyButtonIcon = ref(null);
+const isAnimating = ref(false);
 
 const displayTime = (timeInSeconds) => {
     const hours = Math.floor(timeInSeconds / 3600);
@@ -22,6 +24,16 @@ const displayTime = (timeInSeconds) => {
         ':' +
         String(seconds).padStart(2, '0')
     );
+};
+
+const animateApply = () => {
+    if (isAnimating.value) return;
+    isAnimating.value = true;
+    applyButtonIcon.value.$el.classList.add('half-spin');
+    setTimeout(() => {
+        applyButtonIcon.value.$el.classList.remove('half-spin');
+        isAnimating.value = false;
+    }, 500);
 };
 </script>
 
@@ -108,11 +120,13 @@ const displayTime = (timeInSeconds) => {
                     <button
                         class="flex-grow rounded-t-md border-b-4 border-r-4 border-purple-800 bg-red-200 bg-gradient-to-br from-teal-200 to-teal-300 px-4 text-xl font-bold shadow-sm transition-all duration-75 hover:ml-[2px] hover:mt-[2px] hover:border-b-2 hover:border-r-2"
                         @click="
-                            $emit('update-config', Object.assign({}, config))
+                            animateApply();
+                            $emit('update-config', Object.assign({}, config));
                         "
                     >
                         Apply
                         <font-awesome-icon
+                            ref="applyButtonIcon"
                             :icon="['fas', 'refresh']"
                             class="ml-2"
                         />
@@ -124,3 +138,27 @@ const displayTime = (timeInSeconds) => {
     </div>
     <!-- End Container -->
 </template>
+
+<style lang="scss" scoped>
+@keyframes half-spin {
+    0% {
+        transform: rotate(0deg);
+        scale: 1;
+    }
+    50% {
+        scale: 1;
+    }
+    70% {
+        scale: 1.15;
+        transform: rotate(200deg);
+    }
+    100% {
+        scale: 1;
+        transform: rotate(180deg);
+    }
+}
+
+.half-spin {
+    animation: half-spin 500ms linear 1 forwards;
+}
+</style>
