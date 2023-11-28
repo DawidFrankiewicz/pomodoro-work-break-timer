@@ -27,7 +27,7 @@ const displayTime = (timeInSeconds) => {
     );
 };
 
-const animateApply = () => {
+const animateApplyIcon = () => {
     if (isAnimating.value) return;
     isAnimating.value = true;
     applyButtonIcon.value.$el.classList.add('animate-half-spin');
@@ -37,6 +37,7 @@ const animateApply = () => {
     }, 500);
 };
 
+// Classes removed for animation to work
 const defaultClasses = [
     'border-b-4',
     'border-r-4',
@@ -139,7 +140,7 @@ const animateButtonClick = (event) => {
                         class="flex-grow rounded-t-md border-b-4 border-r-4 border-purple-800 bg-red-200 bg-gradient-to-br from-teal-200 to-teal-300 px-4 text-xl font-bold shadow-sm transition-all duration-75 hover:ml-[2px] hover:mt-[2px] hover:border-b-2 hover:border-r-2"
                         ref="applyButton"
                         @click="
-                            animateApply();
+                            animateApplyIcon();
                             animateButtonClick($event);
                             $emit('update-config', Object.assign({}, config));
                         "

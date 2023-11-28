@@ -24,14 +24,82 @@ const props = defineProps({
 
 const emit = defineEmits(['update']);
 
+const increaseValue = (value) => {
+    if (props.max === undefined || props.max === null) {
+        emit('update', ++value);
+        return;
+    }
+    if (props.value >= props.max) {
+        emit('update', props.max);
+        return;
+    }
+    emit('update', ++value);
+};
+
+const decreaseValue = (value) => {
+    if (props.min === undefined || props.min === null) {
+        emit('update', --value);
+        return;
+    }
+    if (props.value <= props.min) {
+        emit('update', props.min);
+        return;
+    }
+    emit('update', --value);
+};
+
+// Classes removed for animation to work
 const defaultClasses = ['border-b-2', 'border-r-2'];
+// play full animation
 const animateButtonClick = (event) => {
+    animateButtonClickStart(event);
+    setTimeout(() => {
+        animateButtonClickEnd(event);
+    }, 100);
+};
+
+// Animate the button click down
+const animateButtonClickStart = (event) => {
     event.target.classList.remove(...defaultClasses);
     event.target.classList.add('ml-[1px]', 'mt-[1px]');
-    setTimeout(() => {
-        event.target.classList.remove('ml-[1px]', 'mt-[1px]');
-        event.target.classList.add(...defaultClasses);
-    }, 100);
+};
+
+// Animate the button click up
+const animateButtonClickEnd = (event) => {
+    event.target.classList.remove('ml-[1px]', 'mt-[1px]');
+    event.target.classList.add(...defaultClasses);
+};
+
+// Hold button to run callback every repeatedly
+const holdButton = (event, callback) => {
+    let timeout = null;
+    let interval = null;
+
+    // Animate the button click down
+    animateButtonClickStart(event);
+
+    // Wait before starting the interval
+    timeout = setTimeout(() => {
+        interval = setInterval(() => {
+            callback();
+        }, 100);
+    }, 250);
+
+    const clear = () => {
+        clearInterval(interval);
+        clearTimeout(timeout);
+    };
+
+    // Clear the interval and timeout on mouse up or mouse out
+    event.target.addEventListener('mouseup', () => {
+        animateButtonClickEnd(event);
+        clear();
+    });
+
+    event.target.addEventListener('mouseout', () => {
+        animateButtonClickEnd(event);
+        clear();
+    });
 };
 </script>
 
@@ -45,7 +113,7 @@ const animateButtonClick = (event) => {
             :value="value"
             :min="min"
             :max="max"
-            @input="$emit('update', $event.target.value)"
+            @input="$emit('update', Number($event.target.value))"
         />
 
         <div class="w-8">
@@ -53,8 +121,9 @@ const animateButtonClick = (event) => {
                 :disabled="disabled"
                 @click="
                     animateButtonClick($event);
-                    value > 1 ? $emit('update', --value) : $emit('update', 1);
+                    decreaseValue(value);
                 "
+                @mousedown="holdButton($event, () => decreaseValue(value))"
                 class="h-full w-8 rounded-md border-b-2 border-r-2 border-red-300 bg-red-100 transition-all duration-75 disabled:opacity-40"
             >
                 <font-awesome-icon
@@ -69,8 +138,9 @@ const animateButtonClick = (event) => {
                 :disabled="disabled"
                 @click="
                     animateButtonClick($event);
-                    $emit('update', ++value);
+                    increaseValue(value);
                 "
+                @mousedown="holdButton($event, () => increaseValue(value))"
                 class="h-full w-8 rounded-md border-b-2 border-r-2 border-emerald-400 bg-emerald-100 transition-all duration-75 disabled:opacity-40"
             >
                 <font-awesome-icon
@@ -83,6 +153,7 @@ const animateButtonClick = (event) => {
 </template>
 
 <style lang="scss" scoped>
+// Hide the up and down arrows on number inputs
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
