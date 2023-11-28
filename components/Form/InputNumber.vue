@@ -23,6 +23,16 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update']);
+
+const defaultClasses = ['border-b-2', 'border-r-2'];
+const animateButtonClick = (event) => {
+    event.target.classList.remove(...defaultClasses);
+    event.target.classList.add('ml-[1px]', 'mt-[1px]');
+    setTimeout(() => {
+        event.target.classList.remove('ml-[1px]', 'mt-[1px]');
+        event.target.classList.add(...defaultClasses);
+    }, 100);
+};
 </script>
 
 <template>
@@ -38,21 +48,37 @@ const emit = defineEmits(['update']);
             @input="$emit('update', $event.target.value)"
         />
 
-        <button
-            :disabled="disabled"
-            @click="value > 1 ? $emit('update', --value) : $emit('update', 1)"
-            class="w-8 rounded-md border-b-2 border-r-2 border-red-300 bg-red-100 transition-opacity disabled:opacity-40"
-        >
-            <font-awesome-icon :icon="['fas', 'minus']" class="m-auto" />
-        </button>
+        <div class="w-8">
+            <button
+                :disabled="disabled"
+                @click="
+                    animateButtonClick($event);
+                    value > 1 ? $emit('update', --value) : $emit('update', 1);
+                "
+                class="h-full w-8 rounded-md border-b-2 border-r-2 border-red-300 bg-red-100 transition-all duration-75 disabled:opacity-40"
+            >
+                <font-awesome-icon
+                    :icon="['fas', 'minus']"
+                    class="pointer-events-none m-auto"
+                />
+            </button>
+        </div>
 
-        <button
-            :disabled="disabled"
-            @click="$emit('update', ++value)"
-            class="w-8 rounded-md border-b-2 border-r-2 border-emerald-400 bg-emerald-100 transition-opacity disabled:opacity-40"
-        >
-            <font-awesome-icon :icon="['fas', 'plus']" class="m-auto" />
-        </button>
+        <div class="w-8">
+            <button
+                :disabled="disabled"
+                @click="
+                    animateButtonClick($event);
+                    $emit('update', ++value);
+                "
+                class="h-full w-8 rounded-md border-b-2 border-r-2 border-emerald-400 bg-emerald-100 transition-all duration-75 disabled:opacity-40"
+            >
+                <font-awesome-icon
+                    :icon="['fas', 'plus']"
+                    class="pointer-events-none m-auto"
+                />
+            </button>
+        </div>
     </div>
 </template>
 

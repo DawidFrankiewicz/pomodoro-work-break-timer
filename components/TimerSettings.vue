@@ -10,6 +10,7 @@ const emit = defineEmits(['update-config']);
 const isConfigOpen = ref(false);
 const config = ref(props.defaultConfig);
 const applyButtonIcon = ref(null);
+const applyButton = ref(null);
 const isAnimating = ref(false);
 
 const displayTime = (timeInSeconds) => {
@@ -29,11 +30,28 @@ const displayTime = (timeInSeconds) => {
 const animateApply = () => {
     if (isAnimating.value) return;
     isAnimating.value = true;
-    applyButtonIcon.value.$el.classList.add('half-spin');
+    applyButtonIcon.value.$el.classList.add('animate-half-spin');
     setTimeout(() => {
-        applyButtonIcon.value.$el.classList.remove('half-spin');
+        applyButtonIcon.value.$el.classList.remove('animate-half-spin');
         isAnimating.value = false;
     }, 500);
+};
+
+const defaultClasses = [
+    'border-b-4',
+    'border-r-4',
+    'hover:border-b-2',
+    'hover:border-r-2',
+    'hover:ml-[2px]',
+    'hover:mt-[2px]',
+];
+const animateButtonClick = (event) => {
+    event.target.classList.remove(...defaultClasses);
+    event.target.classList.add('ml-1', 'mt-1');
+    setTimeout(() => {
+        event.target.classList.remove('ml-1', 'mt-1');
+        event.target.classList.add(...defaultClasses);
+    }, 100);
 };
 </script>
 
@@ -119,8 +137,10 @@ const animateApply = () => {
                 <div class="flex min-h-[50px]">
                     <button
                         class="flex-grow rounded-t-md border-b-4 border-r-4 border-purple-800 bg-red-200 bg-gradient-to-br from-teal-200 to-teal-300 px-4 text-xl font-bold shadow-sm transition-all duration-75 hover:ml-[2px] hover:mt-[2px] hover:border-b-2 hover:border-r-2"
+                        ref="applyButton"
                         @click="
                             animateApply();
+                            animateButtonClick($event);
                             $emit('update-config', Object.assign({}, config));
                         "
                     >
@@ -128,7 +148,7 @@ const animateApply = () => {
                         <font-awesome-icon
                             ref="applyButtonIcon"
                             :icon="['fas', 'refresh']"
-                            class="ml-2"
+                            class="pointer-events-none ml-2"
                         />
                     </button>
                 </div>
@@ -158,7 +178,7 @@ const animateApply = () => {
     }
 }
 
-.half-spin {
+.animate-half-spin {
     animation: half-spin 500ms linear 1 forwards;
 }
 </style>

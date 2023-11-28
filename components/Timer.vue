@@ -133,5 +133,15 @@ const startWork = () => {
         >
             Stop/Start
         </button>
+
+        <!-- Controls -->
+        <div
+            class="absolute bottom-0 left-1/2 h-20 w-40 -translate-x-1/2 [perspective:200px]"
+        >
+            <div
+                class="absolute h-full w-full origin-bottom rounded-t-xl bg-red-500 [transform:rotateX(30deg)]"
+            ></div>
+        </div>
+        <!-- End Controls -->
     </div>
 </template>

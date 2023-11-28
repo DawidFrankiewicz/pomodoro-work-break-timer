@@ -12,7 +12,6 @@ const config = ref({
         class="relative min-h-screen flex-grow bg-gray-100 bg-gradient-to-br from-gray-100 to-gray-200"
     >
         <Timer :config="config" />
-
         <TimerSettings
             :defaultConfig="Object.assign({}, config)"
             @update-config="(newConfig) => (config = newConfig)"
