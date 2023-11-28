@@ -137,7 +137,7 @@ const animateButtonClick = (event) => {
 
                 <div class="flex min-h-[50px]">
                     <button
-                        class="flex-grow rounded-t-md border-b-4 border-r-4 border-purple-800 bg-red-200 bg-gradient-to-br from-teal-200 to-teal-300 px-4 text-xl font-bold shadow-sm transition-all duration-75 hover:ml-[2px] hover:mt-[2px] hover:border-b-2 hover:border-r-2"
+                        class="flex flex-grow items-center justify-center rounded-t-md border-b-4 border-r-4 border-purple-800 bg-red-200 bg-gradient-to-br from-teal-200 to-teal-300 px-4 text-xl font-bold shadow-sm transition-all duration-75 hover:ml-[2px] hover:mt-[2px] hover:border-b-2 hover:border-r-2"
                         ref="applyButton"
                         @click="
                             animateApplyIcon();
