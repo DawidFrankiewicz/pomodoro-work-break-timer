@@ -124,7 +124,22 @@ const startWork = () => {
         class="mx-auto flex min-h-screen max-w-[1920px] flex-col items-center justify-center"
     >
         <h1 class="px-2 py-6 text-center text-6xl font-bold">
-            Work Brake Timer
+            <span
+                :class="
+                    isWorkTime
+                        ? 'bg-gradient-to-br from-red-300 to-red-500 bg-clip-text text-transparent'
+                        : ''
+                "
+                >Work
+            </span>
+            <span
+                :class="
+                    !isWorkTime
+                        ? 'bg-gradient-to-br from-pink-300 to-pink-500 bg-clip-text text-transparent'
+                        : ''
+                "
+                >Brake </span
+            >Timer
         </h1>
         <div class="flex flex-col items-center rounded-sm px-6 py-5">
             <div class="flex select-none text-center text-xl">
