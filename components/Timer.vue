@@ -6,13 +6,15 @@ const props = defineProps({
     },
 });
 
+const emit = defineEmits(['update:is-work-time']);
+
 const workTime = computed(() => props.config.workTime);
 const breakTime = computed(() => props.config.breakTime);
 const totalTimeExpected = computed(() => {
-    return props.config.isInfinite
-        ? null
-        : (workTime.value + breakTime.value) * props.config.totalRounds -
-              breakTime.value;
+    return (
+        (workTime.value + breakTime.value) * props.config.totalRounds -
+        breakTime.value
+    );
 });
 const isInfinite = computed(() => props.config.isInfinite);
 
@@ -65,6 +67,7 @@ const resetTimer = () => {
     totalTimer.value = 0;
     timer.value = workTime.value;
     isWorkTime.value = true;
+    emit('update:is-work-time', isWorkTime.value);
 };
 
 let timerInterval;
@@ -111,11 +114,13 @@ const stopTimer = () => {
 const startBreak = () => {
     timer.value = breakTime.value;
     isWorkTime.value = false;
+    emit('update:is-work-time', isWorkTime.value);
 };
 
 const startWork = () => {
     timer.value = workTime.value;
     isWorkTime.value = true;
+    emit('update:is-work-time', isWorkTime.value);
 };
 </script>
 

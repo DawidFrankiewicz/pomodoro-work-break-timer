@@ -5,13 +5,23 @@ const config = ref({
     totalRounds: 20,
     isInfinite: false,
 });
+
+const isWorkTime = ref(true);
 </script>
 
 <template>
     <div
-        class="relative min-h-screen flex-grow bg-gray-100 bg-gradient-to-br from-gray-100 to-gray-200"
+        class="relative min-h-screen flex-grow bg-gray-100 bg-gradient-to-br"
+        :class="
+            isWorkTime
+                ? 'from-gray-100 to-gray-200'
+                : 'from-pink-100 to-pink-200'
+        "
     >
-        <Timer :config="config" />
+        <Timer
+            :config="config"
+            @update:is-work-time="(newValue) => (isWorkTime = newValue)"
+        />
         <TimerSettings
             :defaultConfig="Object.assign({}, config)"
             @update-config="(newConfig) => (config = newConfig)"
