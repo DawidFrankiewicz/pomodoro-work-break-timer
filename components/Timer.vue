@@ -6,15 +6,19 @@ const props = defineProps({
     },
 });
 
-const workTime = ref(props.config.workTime);
-const breakTime = ref(props.config.breakTime);
+const workTime = computed(() => props.config.workTime);
+const breakTime = computed(() => props.config.breakTime);
 
 const timer = ref(workTime.value);
 const totalTimer = ref(0);
 const isTimerRunning = ref(false);
 const isWorkTime = ref(true);
 
-let timerInterval;
+const currentRound = computed(() => {
+    return Math.ceil(
+        (totalTimer.value + 1) / (workTime.value + breakTime.value)
+    );
+});
 
 watch(
     () => props.config,
@@ -56,13 +60,19 @@ const resetTimer = () => {
     isWorkTime.value = true;
 };
 
+let timerInterval;
+
 const startTimer = () => {
     isTimerRunning.value = true;
     timerInterval = setInterval(() => {
-        if (timer.value <= 0) {
+        if (timer.value <= 1) {
             if (isWorkTime.value) {
+                timer.value--;
+                totalTimer.value++;
                 startBreak();
             } else {
+                timer.value--;
+                totalTimer.value++;
                 startWork();
             }
         } else {
@@ -92,27 +102,49 @@ const startWork = () => {
     <div
         class="mx-auto flex min-h-screen max-w-[1920px] flex-col items-center justify-center"
     >
-        <h1 class="py-6 text-6xl font-bold">Work Brake Timer</h1>
+        <h1 class="px-2 py-6 text-center text-6xl font-bold">
+            Work Brake Timer
+        </h1>
         <div class="flex flex-col items-center rounded-sm px-6 py-5">
-            <span class="text-3xl font-bold">
-                {{ displayTime(totalTimer, true) }}
-            </span>
-            <span class="text-9xl font-bold">
-                {{ displayTime(timer) }}
-            </span>
-        </div>
-        <div class="rounded-sm px-6 py-5 text-3xl font-bold"></div>
-        <div
-            v-if="props.config.totalRounds"
-            class="rounded-sm px-6 py-5 text-3xl font-bold"
-        >
-            Rounds: {{ props.config.totalRounds }}
-        </div>
-        <div
-            v-if="props.config.isInfinite !== undefined"
-            class="rounded-sm px-6 py-5 text-3xl font-bold"
-        >
-            Rounds: {{ props.config.isInfinite }}
+            <div class="flex select-none text-center text-xl">
+                <span
+                    v-for="char in [...displayTime(totalTimer, true)]"
+                    class="flex justify-center"
+                    :class="char === ':' ? 'w-4' : 'w-6'"
+                >
+                    {{ char }}
+                </span>
+            </div>
+            <div class="flex select-none text-center text-9xl font-bold">
+                <span
+                    v-for="char in [...displayTime(timer)]"
+                    class="flex justify-center"
+                    :class="char === ':' ? 'w-10' : 'w-[84px]'"
+                >
+                    {{ char }}
+                </span>
+            </div>
+            <div class="flex select-none items-center text-center text-xl">
+                <span
+                    v-for="char in [...String(currentRound)]"
+                    class="flex w-4 justify-center"
+                >
+                    {{ char }}
+                </span>
+                <span class="flex w-4 justify-center">/</span>
+                <span
+                    v-if="!props.config.isInfinite"
+                    v-for="char in [...String(props.config.totalRounds)]"
+                    class="flex w-4 justify-center"
+                >
+                    {{ char }}
+                </span>
+                <font-awesome-icon
+                    v-else
+                    class="fa-xs ml-1"
+                    :icon="['fas', 'infinity']"
+                />
+            </div>
         </div>
 
         <TimerControls
@@ -122,4 +154,3 @@ const startWork = () => {
         />
     </div>
 </template>
-6
