@@ -8,6 +8,13 @@ const props = defineProps({
 
 const workTime = computed(() => props.config.workTime);
 const breakTime = computed(() => props.config.breakTime);
+const totalTimeExpected = computed(() => {
+    return props.config.isInfinite
+        ? null
+        : (workTime.value + breakTime.value) * props.config.totalRounds -
+              breakTime.value;
+});
+const isInfinite = computed(() => props.config.isInfinite);
 
 const timer = ref(workTime.value);
 const totalTimer = ref(0);
@@ -69,10 +76,24 @@ const startTimer = () => {
             if (isWorkTime.value) {
                 timer.value--;
                 totalTimer.value++;
+                if (
+                    !isInfinite.value &&
+                    totalTimer.value >= totalTimeExpected.value
+                ) {
+                    stopTimer();
+                    return;
+                }
                 startBreak();
             } else {
                 timer.value--;
                 totalTimer.value++;
+                if (
+                    !isInfinite.value &&
+                    totalTimer.value >= totalTimeExpected.value
+                ) {
+                    stopTimer();
+                    return;
+                }
                 startWork();
             }
         } else {
@@ -149,8 +170,10 @@ const startWork = () => {
 
         <TimerControls
             :isTimerRunning="isTimerRunning"
+            :isTimerEnded="isInfinite ? false : totalTimer >= totalTimeExpected"
             @startTimer="startTimer()"
             @stopTimer="stopTimer()"
+            @resetTimer="resetTimer()"
         />
     </div>
 </template>

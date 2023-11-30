@@ -4,9 +4,14 @@ const props = defineProps({
         type: Boolean,
         required: true,
     },
+    isTimerEnded: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
 });
 
-const emit = defineEmits(['start-timer', 'stop-timer']);
+const emit = defineEmits(['start-timer', 'stop-timer', 'reset-timer']);
 </script>
 
 <template>
@@ -14,11 +19,23 @@ const emit = defineEmits(['start-timer', 'stop-timer']);
         class="absolute bottom-0 left-1/2 flex h-20 -translate-x-1/2 items-end justify-center px-4 pb-2 pt-4 [perspective:200px]"
     >
         <button
-            @click="isTimerRunning ? $emit('stop-timer') : $emit('start-timer')"
+            @click="
+                isTimerEnded
+                    ? $emit('reset-timer')
+                    : isTimerRunning
+                      ? $emit('stop-timer')
+                      : $emit('start-timer')
+            "
             class="group relative z-20 flex origin-bottom items-center px-4 text-purple-950"
         >
             <font-awesome-icon
-                :icon="isTimerRunning ? ['fas', 'pause'] : ['fas', 'play']"
+                :icon="
+                    isTimerEnded
+                        ? ['fas', 'refresh']
+                        : isTimerRunning
+                          ? ['fas', 'pause']
+                          : ['fas', 'play']
+                "
                 class="pointer-events-none h-12 w-12 origin-bottom transition-transform group-hover:scale-110"
             />
         </button>

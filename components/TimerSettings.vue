@@ -130,7 +130,7 @@ const animateButtonClick = (event) => {
                     {{
                         displayTime(
                             config.workTime * config.totalRounds +
-                                config.breakTime * config.totalRounds
+                                config.breakTime * (config.totalRounds - 1)
                         )
                     }}
                 </div>
