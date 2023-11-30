@@ -8,6 +8,10 @@ A goal of the technique is to reduce the effect of internal and external interru
 
 This project was created using Nuxt.js and Tailwind CSS.
 
+## Preview
+
+https://dawidfrankiewicz.github.io/pomodoro-work-break-timer/
+
 ## Setup
 
 Node.js version: `v20.8.0`
