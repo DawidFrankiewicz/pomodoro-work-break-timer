@@ -12,6 +12,7 @@ jobs:
     gh-pages-deploy:
         runs-on: ${{ matrix.os }}
 
+        #  Allow access to write to the gh-pages branch
         permissions:
             contents: write
 
@@ -37,6 +38,7 @@ jobs:
 
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
+              #   Deploy only on push to master branch
               if: github.ref == 'refs/heads/master'
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
