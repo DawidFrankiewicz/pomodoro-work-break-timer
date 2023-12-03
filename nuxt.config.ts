@@ -13,7 +13,11 @@ export default defineNuxtConfig({
                 },
             ],
             link: [
-                { rel: 'icon', type: 'image/x-icon', href: '~/favicon.ico' },
+                {
+                    rel: 'icon',
+                    type: 'image/x-icon',
+                    href: '/pomodoro-work-break-timer/favicon.ico',
+                },
             ],
         },
     },
