@@ -23,21 +23,13 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@master
+              uses: actions/checkout@v3
 
             - name: Setup node env
               uses: actions/setup-node@v4.0.0
 
               with:
                   node-version: ${{ matrix.node }}
-
-            - name: Cache dependencies
-              uses: actions/cache@v3
-              with:
-                  path: ~/.npm
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-
 
             - name: Generate
               run: npm run generate
