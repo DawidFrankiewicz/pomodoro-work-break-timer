@@ -1,16 +1,13 @@
 # Pomodoro Work Break Timer
 
-A simple timer to help you take breaks while working. The timer is based on the [Pomodoro Technique](https://en.wikipedia.org/wiki/Pomodoro_Technique).
-
+A simple timer to help you take breaks while working. The timer is based on the [Pomodoro Technique](https://en.wikipedia.org/wiki/Pomodoro_Technique).<br>
 A goal of the technique is to reduce the effect of internal and external interruptions on focus and flow.
-
-## About
 
 This project was created using Nuxt.js and Tailwind CSS.
 
 ## Preview
 
-https://dawidfrankiewicz.github.io/pomodoro-work-break-timer/
+Github pages: https://dawidfrankiewicz.github.io/pomodoro-work-break-timer/
 
 ## Setup
 
@@ -23,7 +20,7 @@ Make sure to install the dependencies:
 npm install
 ```
 
-## Development Server
+### Development Server
 
 Start the development server on `http://localhost:3000`:
 
@@ -32,7 +29,7 @@ Start the development server on `http://localhost:3000`:
 npm run dev
 ```
 
-## Production
+### Production
 
 Build the application for production:
 
