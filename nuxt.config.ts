@@ -11,6 +11,10 @@ export default defineNuxtConfig({
                     name: 'viewport',
                     content: 'width=device-width, initial-scale=1',
                 },
+                {
+                    'http-equiv': 'Permissions-Policy',
+                    content: 'interest-cohort=(), user-id=()',
+                },
             ],
             link: [
                 {
