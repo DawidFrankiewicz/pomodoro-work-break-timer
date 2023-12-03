@@ -31,8 +31,13 @@ jobs:
               with:
                   node-version: ${{ matrix.node }}
 
-            - name: Install dependencies
-              run: npm install
+            - name: Cache dependencies
+              uses: actions/cache@v3
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
 
             - name: Generate
               run: npm run generate
@@ -41,4 +46,4 @@ jobs:
               uses: peaceiris/actions-gh-pages@v3
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
-                  publish_dir: ./.output/public
+                  publish_dir: ./dist
