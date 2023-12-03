@@ -144,7 +144,7 @@ const startWork = () => {
                         : ''
                 "
                 >Brake </span
-            >Timer [No Build]
+            >Timer
         </h1>
         <div class="flex flex-col items-center rounded-sm px-6 py-5">
             <div class="flex select-none text-center text-xl">
