@@ -12,7 +12,9 @@ export default defineNuxtConfig({
                     content: 'width=device-width, initial-scale=1',
                 },
             ],
-            link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+            link: [
+                { rel: 'icon', type: 'image/x-icon', href: '~/favicon.ico' },
+            ],
         },
     },
     devtools: { enabled: true },
