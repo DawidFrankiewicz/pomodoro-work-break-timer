@@ -1,8 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    baseURL: '/pomodoro-work-break-timer/',
-    buildAssetsDir: 'assets',
     app: {
+        baseURL: '/pomodoro-work-break-timer/',
+        buildAssetsDir: 'assets',
         head: {
             title: 'Pomodoro Timer',
             meta: [
