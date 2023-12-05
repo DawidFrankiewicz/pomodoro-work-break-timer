@@ -104,10 +104,12 @@ const holdButton = (event, callback) => {
 </script>
 
 <template>
-    <label v-if="label" class="block font-bold">{{ label }}</label>
+    <label data-e2e="label" v-if="label" class="block font-bold">{{
+        label
+    }}</label>
     <div class="flex gap-1">
         <input
-            e2e="input"
+            data-e2e="input"
             :disabled="disabled"
             class="w-10 grow py-1 text-center text-black transition-colors"
             type="number"
@@ -119,7 +121,7 @@ const holdButton = (event, callback) => {
 
         <div class="w-8">
             <button
-                e2e="decrement"
+                data-e2e="decrement"
                 :disabled="disabled"
                 @click="
                     animateButtonClick($event);
@@ -137,7 +139,7 @@ const holdButton = (event, callback) => {
 
         <div class="w-8">
             <button
-                e2e="increment"
+                data-e2e="increment"
                 :disabled="disabled"
                 @click="
                     animateButtonClick($event);
