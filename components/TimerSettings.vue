@@ -13,20 +13,6 @@ const applyButtonIcon = ref(null);
 const applyButton = ref(null);
 const isAnimating = ref(false);
 
-const displayTime = (timeInSeconds) => {
-    const hours = Math.floor(timeInSeconds / 3600);
-    const minutes = Math.floor(timeInSeconds / 60) % 60;
-    const seconds = timeInSeconds % 60;
-
-    return (
-        String(hours).padStart(2, '0') +
-        ':' +
-        String(minutes).padStart(2, '0') +
-        ':' +
-        String(seconds).padStart(2, '0')
-    );
-};
-
 const animateApplyIcon = () => {
     if (isAnimating.value) return;
     isAnimating.value = true;
@@ -130,7 +116,8 @@ const animateButtonClick = (event) => {
                     {{
                         displayTime(
                             config.workTime * config.totalRounds +
-                                config.breakTime * (config.totalRounds - 1)
+                                config.breakTime * (config.totalRounds - 1),
+                            true
                         )
                     }}
                 </div>
