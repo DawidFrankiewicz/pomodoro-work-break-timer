@@ -5,5 +5,8 @@ export default defineConfig({
     plugins: [Vue()],
     test: {
         globals: true,
+        coverage: {
+            providers: 'v8',
+        },
     },
 });

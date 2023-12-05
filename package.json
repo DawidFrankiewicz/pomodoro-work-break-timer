@@ -9,13 +9,15 @@
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
         "lint": "prettier --write .",
-        "test": "vitest"
+        "test": "vitest",
+        "coverage": "vitest run --coverage"
     },
     "devDependencies": {
         "@nuxt/devtools": "latest",
         "@nuxtjs/google-fonts": "^3.1.0",
         "@nuxtjs/tailwindcss": "^6.10.1",
         "@vitejs/plugin-vue": "^4.5.1",
+        "@vitest/coverage-v8": "^1.0.1",
         "nuxt": "^3.8.2",
         "vitest": "^1.0.1",
         "vue": "^3.3.8",
