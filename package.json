@@ -10,7 +10,7 @@
         "postinstall": "nuxt prepare",
         "lint": "prettier --write .",
         "test": "vitest",
-        "coverage": "vitest run --coverage"
+        "test:coverage": "vitest run --coverage"
     },
     "devDependencies": {
         "@nuxt/devtools": "latest",
