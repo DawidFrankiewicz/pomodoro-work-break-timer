@@ -1,16 +1,23 @@
 import { mount } from '@vue/test-utils';
+import FontAwesomeIcon from '@/tests/plugins/fontawesome.js';
 
 test('Should render correctly', async () => {
     const component = await import('@/components/Form/InputNumber.vue');
     expect(component).toBeDefined();
 
     const wrapper = mount(component.default, {
+        global: {
+            components: { FontAwesomeIcon },
+        },
         propsData: {
             value: 0,
         },
     });
 
+    // Check if component matches snapshot (HTML structure)
+    // https://vitest.dev/guide/snapshot#updating-snapshots
     expect(wrapper.html()).toMatchSnapshot();
+    // Check if all important elements are rendered
     expect(wrapper.find('[e2e="input"]').exists()).toBe(true);
     expect(wrapper.find('[e2e="increment"]').exists()).toBe(true);
     expect(wrapper.find('[e2e="decrement"]').exists()).toBe(true);
@@ -26,6 +33,9 @@ describe('Should have input value equal to passed prop', async () => {
         expect(component).toBeDefined();
 
         const wrapper = mount(component.default, {
+            global: {
+                components: { FontAwesomeIcon },
+            },
             propsData: {
                 value: input,
             },
@@ -48,6 +58,9 @@ describe('Should increment value', async () => {
         expect(component).toBeDefined();
 
         const wrapper = mount(component.default, {
+            global: {
+                components: { FontAwesomeIcon },
+            },
             propsData: {
                 value: input,
             },
@@ -92,6 +105,9 @@ describe('Should decrement value', async () => {
         expect(component).toBeDefined();
 
         const wrapper = mount(component.default, {
+            global: {
+                components: { FontAwesomeIcon },
+            },
             propsData: {
                 value: input,
             },
@@ -122,5 +138,71 @@ describe('Should decrement value', async () => {
         );
         // Check last emitted value
         expect(wrapper.emitted('update')[clicks - 1][0]).toBe(expected);
+    });
+});
+
+describe('Should not increment above max', async () => {
+    test('10 times from 0 (max 5)', async () => {
+        const component = await import('@/components/Form/InputNumber.vue');
+        expect(component).toBeDefined();
+
+        const wrapper = mount(component.default, {
+            global: {
+                components: { FontAwesomeIcon },
+            },
+            propsData: {
+                value: 0,
+                max: 5,
+            },
+        });
+
+        // Check displayed initial value
+        expect(wrapper.find('[e2e="input"]').wrapperElement.value).toBe(0);
+
+        // Click X times
+        for (let i = 0; i < 10; i++) {
+            await wrapper.find('[e2e="increment"]').trigger('click');
+            await wrapper.setProps({
+                value: wrapper.emitted('update')[i][0],
+            });
+        }
+
+        // Check displayed value
+        expect(wrapper.find('[e2e="input"]').wrapperElement.value).toBe(5);
+        // Check last emitted value
+        expect(wrapper.emitted('update')[9][0]).toBe(5);
+    });
+});
+
+describe('Should not decrement below min', async () => {
+    test('10 times from 0 (min -5)', async () => {
+        const component = await import('@/components/Form/InputNumber.vue');
+        expect(component).toBeDefined();
+
+        const wrapper = mount(component.default, {
+            global: {
+                components: { FontAwesomeIcon },
+            },
+            propsData: {
+                value: 0,
+                min: -5,
+            },
+        });
+
+        // Check displayed initial value
+        expect(wrapper.find('[e2e="input"]').wrapperElement.value).toBe(0);
+
+        // Click X times
+        for (let i = 0; i < 10; i++) {
+            await wrapper.find('[e2e="decrement"]').trigger('click');
+            await wrapper.setProps({
+                value: wrapper.emitted('update')[i][0],
+            });
+        }
+
+        // Check displayed value
+        expect(wrapper.find('[e2e="input"]').wrapperElement.value).toBe(-5);
+        // Check last emitted value
+        expect(wrapper.emitted('update')[9][0]).toBe(-5);
     });
 });
