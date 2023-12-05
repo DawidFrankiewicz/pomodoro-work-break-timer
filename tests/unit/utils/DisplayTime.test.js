@@ -1,6 +1,6 @@
 import displayTime from '/utils/DisplayTime';
 
-describe('Display time (minutes and seconds)', () => {
+describe('Should display time in format 00:00', () => {
     test('Input 0', async () => {
         expect(displayTime(0)).toBe('00:00');
     });
@@ -24,7 +24,7 @@ describe('Display time (minutes and seconds)', () => {
     });
 });
 
-describe('Display time (hours, minutes and seconds)', () => {
+describe('Should display time in format 00:00:00', () => {
     test('Input 0', async () => {
         expect(displayTime(0, true)).toBe('00:00:00');
     });
