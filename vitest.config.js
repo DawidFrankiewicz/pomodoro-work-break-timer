@@ -7,6 +7,7 @@ export default defineConfig({
         globals: true,
         coverage: {
             providers: 'v8',
+            include: ['components/**', 'utils/**', 'app.vue'],
         },
     },
 });
