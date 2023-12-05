@@ -22,7 +22,7 @@ const emit = defineEmits(['start-timer', 'stop-timer', 'reset-timer']);
             @click="$emit('reset-timer')"
             class="group relative z-20 flex origin-bottom items-center px-4 text-purple-950"
         >
-            <font-awesome-icon
+            <FontAwesomeIcon
                 :icon="['fas', 'refresh']"
                 class="pointer-events-none h-12 w-12 origin-bottom transition-transform group-hover:scale-110"
             />
@@ -33,7 +33,7 @@ const emit = defineEmits(['start-timer', 'stop-timer', 'reset-timer']);
             class="group relative z-20 flex origin-bottom items-center px-4 text-purple-950"
             :class="isTimerEnded ? 'opacity-40' : ''"
         >
-            <font-awesome-icon
+            <FontAwesomeIcon
                 :icon="isTimerRunning ? ['fas', 'pause'] : ['fas', 'play']"
                 class="pointer-events-none h-12 w-12 origin-bottom transition-transform group-hover:scale-110"
             />

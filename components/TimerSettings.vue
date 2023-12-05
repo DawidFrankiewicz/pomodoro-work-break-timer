@@ -53,7 +53,7 @@ const animateButtonClick = (event) => {
             @click="isConfigOpen = !isConfigOpen"
             class="absolute right-0 top-12 z-0 h-16 w-16 translate-x-full rounded-e-md bg-purple-200 bg-gradient-to-bl from-purple-200 to-purple-400 shadow-md"
         >
-            <font-awesome-icon :icon="['fas', 'gear']" class="fa-2xl" />
+            <FontAwesomeIcon :icon="['fas', 'gear']" class="fa-2xl" />
         </button>
         <!-- End Open button -->
         <!-- Config bar -->
@@ -133,7 +133,7 @@ const animateButtonClick = (event) => {
                         "
                     >
                         Apply
-                        <font-awesome-icon
+                        <FontAwesomeIcon
                             ref="applyButtonIcon"
                             :icon="['fas', 'refresh']"
                             class="pointer-events-none ml-2"

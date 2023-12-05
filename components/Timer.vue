@@ -158,7 +158,7 @@ const startWork = () => {
                 >
                     {{ char }}
                 </span>
-                <font-awesome-icon
+                <FontAwesomeIcon
                     v-else
                     class="fa-xs ml-1"
                     :icon="['fas', 'infinity']"

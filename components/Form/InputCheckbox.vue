@@ -39,8 +39,8 @@ const emit = defineEmits(['update']);
                 "
             >
                 {{ value ? 'On' : 'Off' }}
-                <font-awesome-icon v-if="value" :icon="['fas', 'check']" />
-                <font-awesome-icon v-else :icon="['fas', 'times']" />
+                <FontAwesomeIcon v-if="value" :icon="['fas', 'check']" />
+                <FontAwesomeIcon v-else :icon="['fas', 'times']" />
             </button>
         </div>
     </label>

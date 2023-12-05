@@ -128,7 +128,7 @@ const holdButton = (event, callback) => {
                 @mousedown="holdButton($event, () => decreaseValue(value))"
                 class="h-full w-8 rounded-md border-b-2 border-r-2 border-red-300 bg-red-100 transition-all duration-75 hover:bg-red-50 disabled:opacity-40"
             >
-                <font-awesome-icon
+                <FontAwesomeIcon
                     :icon="['fas', 'minus']"
                     class="pointer-events-none m-auto"
                 />
@@ -146,7 +146,7 @@ const holdButton = (event, callback) => {
                 @mousedown="holdButton($event, () => increaseValue(value))"
                 class="h-full w-8 rounded-md border-b-2 border-r-2 border-emerald-400 bg-emerald-100 transition-all duration-75 hover:bg-emerald-50 disabled:opacity-40"
             >
-                <font-awesome-icon
+                <FontAwesomeIcon
                     :icon="['fas', 'plus']"
                     class="pointer-events-none m-auto"
                 />
