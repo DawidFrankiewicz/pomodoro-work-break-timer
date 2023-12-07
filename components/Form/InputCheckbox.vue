@@ -19,9 +19,12 @@ const emit = defineEmits(['update']);
 
 <template>
     <label>
-        <span v-if="label" class="block font-bold">{{ label }}</span>
+        <span data-e2e="label" v-if="label" class="block font-bold">{{
+            label
+        }}</span>
         <div class="flex h-8">
             <input
+                data-e2e="input"
                 :disabled="disabled"
                 class="absolute appearance-none"
                 type="checkbox"
@@ -29,6 +32,7 @@ const emit = defineEmits(['update']);
             />
 
             <button
+                data-e2e="checkbox"
                 @click="$emit('update', !value)"
                 :disabled="disabled"
                 class="h-8 w-16 rounded-md transition-all duration-75 disabled:opacity-40"
