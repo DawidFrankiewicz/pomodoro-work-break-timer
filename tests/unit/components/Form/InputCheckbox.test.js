@@ -33,7 +33,9 @@ describe.concurrent(
             [true, true],
             [false, false],
         ])('Props: Value %s', async (input, expected) => {
-            const component = await import('@/components/Form/InputNumber.vue');
+            const component = await import(
+                '@/components/Form/InputCheckbox.vue'
+            );
             expect(component).toBeDefined();
 
             const wrapper = mount(component.default, {
@@ -47,7 +49,7 @@ describe.concurrent(
 
             expect(
                 wrapper.find('[data-e2e="input"]').wrapperElement.value
-            ).toBe(expected);
+            ).toBe(String(expected));
         });
     }
 );
