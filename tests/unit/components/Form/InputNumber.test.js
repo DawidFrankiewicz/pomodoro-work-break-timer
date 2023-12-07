@@ -32,7 +32,7 @@ describe.concurrent(
             [0, 0],
             [12, 12],
             [-17, -17],
-        ])('Props: Value %i', async (input, expected) => {
+        ])('Value %i', async (input, expected) => {
             const component = await import('@/components/Form/InputNumber.vue');
             expect(component).toBeDefined();
 
@@ -51,6 +51,47 @@ describe.concurrent(
         });
     }
 );
+
+describe.concurrent('Should emit value typed in input field', async () => {
+    test.each([
+        [0, 5],
+        [17, -25],
+        [-17, 25],
+    ])('Value %i, Typed %i', async (input, expected) => {
+        const component = await import('@/components/Form/InputNumber.vue');
+        expect(component).toBeDefined();
+
+        const wrapper = mount(component.default, {
+            global: {
+                components: { FontAwesomeIcon },
+            },
+            propsData: {
+                value: input,
+            },
+        });
+
+        // Check displayed initial value
+        expect(wrapper.find('[data-e2e="input"]').wrapperElement.value).toBe(
+            input
+        );
+
+        // Type in input
+        await wrapper
+            .find('[data-e2e="input"]')
+            .setValue(String(expected), { force: true });
+        await wrapper.setProps({
+            value: wrapper.emitted('update')[0][0],
+        });
+
+        // Check if end value is correct
+        // Check displayed value
+        expect(wrapper.find('[data-e2e="input"]').wrapperElement.value).toBe(
+            expected
+        );
+        // Check last emitted value
+        expect(wrapper.emitted('update')[0][0]).toBe(expected);
+    });
+});
 
 describe.concurrent('Should increment value', async () => {
     test.each([
