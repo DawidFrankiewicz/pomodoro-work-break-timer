@@ -1,20 +1,18 @@
-import { shallowMount, mount } from '@vue/test-utils';
-import Timer from '@/components/Timer.vue';
-import TimerSettings from '@/components/TimerSettings.vue';
+import { shallowMount } from '@vue/test-utils';
 
-const components = {
-    Timer,
-    TimerSettings,
+const factory = async () => {
+    const component = await import('@/app.vue');
+
+    return shallowMount(component.default, {
+        global: {
+            stubs: ['Timer', 'TimerSettings'],
+        },
+    });
 };
 
 describe('App.test.js', () => {
     test('Should render correctly', async () => {
-        const component = await import('@/app.vue');
-        expect(component).toBeDefined();
-
-        const wrapper = shallowMount(component.default, {
-            components: components,
-        });
+        const wrapper = await factory();
 
         // Check if component matches snapshot (HTML structure)
         // https://vitest.dev/guide/snapshot#updating-snapshots

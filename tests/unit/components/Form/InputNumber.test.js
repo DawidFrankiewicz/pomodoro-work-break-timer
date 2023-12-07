@@ -1,18 +1,20 @@
 import { mount } from '@vue/test-utils';
-import FontAwesomeIcon from '@/tests/plugins/fontawesome.js';
+
+const factory = async (propsData) => {
+    const component = await import('@/components/Form/InputNumber.vue');
+
+    return mount(component.default, {
+        global: {
+            stubs: ['FontAwesomeIcon'],
+        },
+        props: propsData,
+    });
+};
 
 test('Should render correctly', async () => {
-    const component = await import('@/components/Form/InputNumber.vue');
-    expect(component).toBeDefined();
-
-    const wrapper = mount(component.default, {
-        global: {
-            components: { FontAwesomeIcon },
-        },
-        propsData: {
-            value: 0,
-            label: 'Test',
-        },
+    const wrapper = await factory({
+        value: 0,
+        label: 'Test',
     });
 
     // Check if component matches snapshot (HTML structure)
@@ -33,16 +35,8 @@ describe.concurrent(
             [12, 12],
             [-17, -17],
         ])('Value %i', async (input, expected) => {
-            const component = await import('@/components/Form/InputNumber.vue');
-            expect(component).toBeDefined();
-
-            const wrapper = mount(component.default, {
-                global: {
-                    components: { FontAwesomeIcon },
-                },
-                propsData: {
-                    value: input,
-                },
+            const wrapper = await factory({
+                value: input,
             });
 
             expect(
@@ -58,16 +52,8 @@ describe.concurrent('Should emit value typed in input field', async () => {
         [17, -25],
         [-17, 25],
     ])('Value %i, Typed %i', async (input, expected) => {
-        const component = await import('@/components/Form/InputNumber.vue');
-        expect(component).toBeDefined();
-
-        const wrapper = mount(component.default, {
-            global: {
-                components: { FontAwesomeIcon },
-            },
-            propsData: {
-                value: input,
-            },
+        const wrapper = await factory({
+            value: input,
         });
 
         // Check displayed initial value
@@ -100,16 +86,8 @@ describe.concurrent('Should increment value', async () => {
         [2, -6, -4],
         [6, -4, 2],
     ])(`%i time(s) from %i to %i`, async (clicks, input, expected) => {
-        const component = await import('@/components/Form/InputNumber.vue');
-        expect(component).toBeDefined();
-
-        const wrapper = mount(component.default, {
-            global: {
-                components: { FontAwesomeIcon },
-            },
-            propsData: {
-                value: input,
-            },
+        const wrapper = await factory({
+            value: input,
         });
 
         // Check displayed initial value
@@ -149,15 +127,8 @@ describe.concurrent('Should decrement value', async () => {
         [2, -6, -8],
         [6, 4, -2],
     ])(`%i time(s) from %i to %i`, async (clicks, input, expected) => {
-        const component = await import('@/components/Form/InputNumber.vue');
-        expect(component).toBeDefined();
-        const wrapper = mount(component.default, {
-            global: {
-                components: { FontAwesomeIcon },
-            },
-            propsData: {
-                value: input,
-            },
+        const wrapper = await factory({
+            value: input,
         });
 
         // Check displayed initial value
@@ -192,17 +163,9 @@ describe.concurrent('Should decrement value', async () => {
 
 describe.concurrent('Should not increment above max', async () => {
     test('10 times from 0 (max 5)', async () => {
-        const component = await import('@/components/Form/InputNumber.vue');
-        expect(component).toBeDefined();
-
-        const wrapper = mount(component.default, {
-            global: {
-                components: { FontAwesomeIcon },
-            },
-            propsData: {
-                value: 0,
-                max: 5,
-            },
+        const wrapper = await factory({
+            value: 0,
+            max: 5,
         });
 
         // Check displayed initial value
@@ -225,17 +188,9 @@ describe.concurrent('Should not increment above max', async () => {
 
 describe.concurrent('Should not decrement below min', async () => {
     test('10 times from 0 (min -5)', async () => {
-        const component = await import('@/components/Form/InputNumber.vue');
-        expect(component).toBeDefined();
-
-        const wrapper = mount(component.default, {
-            global: {
-                components: { FontAwesomeIcon },
-            },
-            propsData: {
-                value: 0,
-                min: -5,
-            },
+        const wrapper = await factory({
+            value: 0,
+            min: -5,
         });
 
         // Check displayed initial value
@@ -262,16 +217,8 @@ describe.concurrent(
     'Should increment/decrement by X on click hold',
     async () => {
         test('Hold increment for 600ms (3 emits)', async () => {
-            const component = await import('@/components/Form/InputNumber.vue');
-            expect(component).toBeDefined();
-
-            const wrapper = mount(component.default, {
-                global: {
-                    components: { FontAwesomeIcon },
-                },
-                propsData: {
-                    value: 0,
-                },
+            const wrapper = await factory({
+                value: 0,
             });
 
             // Check displayed initial value
@@ -309,16 +256,8 @@ describe.concurrent(
         });
 
         test('Hold decrement for 600ms (3 emits)', async () => {
-            const component = await import('@/components/Form/InputNumber.vue');
-            expect(component).toBeDefined();
-
-            const wrapper = mount(component.default, {
-                global: {
-                    components: { FontAwesomeIcon },
-                },
-                propsData: {
-                    value: 0,
-                },
+            const wrapper = await factory({
+                value: 0,
             });
 
             // Check displayed initial value
@@ -359,17 +298,9 @@ describe.concurrent(
 
 describe.concurrent('Should display label correctly', async () => {
     test('Label: "Test"', async () => {
-        const component = await import('@/components/Form/InputNumber.vue');
-        expect(component).toBeDefined();
-
-        const wrapper = mount(component.default, {
-            global: {
-                components: { FontAwesomeIcon },
-            },
-            propsData: {
-                label: 'Test',
-                value: 0,
-            },
+        const wrapper = await factory({
+            label: 'Test',
+            value: 0,
         });
 
         expect(wrapper.find('[data-e2e="label"]').exists()).toBe(true);
@@ -377,17 +308,9 @@ describe.concurrent('Should display label correctly', async () => {
     });
 
     test('Label: null', async () => {
-        const component = await import('@/components/Form/InputNumber.vue');
-        expect(component).toBeDefined();
-
-        const wrapper = mount(component.default, {
-            global: {
-                components: { FontAwesomeIcon },
-            },
-            propsData: {
-                label: null,
-                value: 0,
-            },
+        const wrapper = await factory({
+            label: null,
+            value: 0,
         });
 
         expect(wrapper.find('[data-e2e="label"]').exists()).toBe(false);

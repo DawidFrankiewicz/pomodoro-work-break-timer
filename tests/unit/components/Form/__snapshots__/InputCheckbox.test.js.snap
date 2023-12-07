@@ -2,8 +2,6 @@
 
 exports[`InputCheckbox.test.js > Should render correctly 1`] = `
 "<label><span data-e2e="label" class="block font-bold">Test</span>
-  <div class="flex h-8"><input data-e2e="input" class="absolute appearance-none" type="checkbox" value="true"><button data-e2e="checkbox" class="h-8 w-16 rounded-md transition-all duration-75 disabled:opacity-40 ml-[2px] mt-[2px] border-b-2 border-r-2 border-emerald-400 bg-emerald-100 hover:bg-emerald-50">On <svg class="svg-inline--fa fa-check" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-        <path class="" fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path>
-      </svg></button></div>
+  <div class="flex h-8"><input data-e2e="input" class="absolute appearance-none" type="checkbox" value="true"><button data-e2e="checkbox" class="h-8 w-16 rounded-md transition-all duration-75 disabled:opacity-40 ml-[2px] mt-[2px] border-b-2 border-r-2 border-emerald-400 bg-emerald-100 hover:bg-emerald-50">On <font-awesome-icon-stub icon="fas,check"></font-awesome-icon-stub></button></div>
 </label>"
 `;

@@ -1,19 +1,24 @@
 import { mount } from '@vue/test-utils';
-import FontAwesomeIcon from '@/tests/plugins/fontawesome.js';
+
+const factory = async (propsData) => {
+    const component = await import('@/components/Form/InputCheckbox.vue');
+
+    return mount(component.default, {
+        global: {
+            stubs: ['FontAwesomeIcon'],
+        },
+        props: propsData,
+    });
+};
 
 describe('InputCheckbox.test.js', () => {
     test('Should render correctly', async () => {
         const component = await import('@/components/Form/InputCheckbox.vue');
         expect(component).toBeDefined();
 
-        const wrapper = mount(component.default, {
-            global: {
-                components: { FontAwesomeIcon },
-            },
-            propsData: {
-                value: true,
-                label: 'Test',
-            },
+        const wrapper = await factory({
+            value: true,
+            label: 'Test',
         });
 
         // Check if component matches snapshot (HTML structure)
@@ -33,18 +38,8 @@ describe.concurrent(
             [true, true],
             [false, false],
         ])('Props: Value %s', async (input, expected) => {
-            const component = await import(
-                '@/components/Form/InputCheckbox.vue'
-            );
-            expect(component).toBeDefined();
-
-            const wrapper = mount(component.default, {
-                global: {
-                    components: { FontAwesomeIcon },
-                },
-                propsData: {
-                    value: input,
-                },
+            const wrapper = await factory({
+                value: input,
             });
 
             expect(
@@ -56,19 +51,11 @@ describe.concurrent(
 
 describe.concurrent('Should change value to opposite', async () => {
     test.each([
-        [false, true],
-        [true, false],
+        [false, true, 0],
+        [true, false, 1],
     ])(`From %s to %s`, async (input, expected) => {
-        const component = await import('@/components/Form/InputCheckbox.vue');
-        expect(component).toBeDefined();
-
-        const wrapper = mount(component.default, {
-            global: {
-                components: { FontAwesomeIcon },
-            },
-            propsData: {
-                value: input,
-            },
+        const wrapper = await factory({
+            value: input,
         });
 
         // Check displayed initial value
@@ -94,17 +81,9 @@ describe.concurrent('Should change value to opposite', async () => {
 
 describe.concurrent('Should display label correctly', async () => {
     test('Label: "Test"', async () => {
-        const component = await import('@/components/Form/InputCheckbox.vue');
-        expect(component).toBeDefined();
-
-        const wrapper = mount(component.default, {
-            global: {
-                components: { FontAwesomeIcon },
-            },
-            propsData: {
-                label: 'Test',
-                value: false,
-            },
+        const wrapper = await factory({
+            label: 'Test',
+            value: false,
         });
 
         expect(wrapper.find('[data-e2e="label"]').exists()).toBe(true);
@@ -112,17 +91,9 @@ describe.concurrent('Should display label correctly', async () => {
     });
 
     test('Label: null', async () => {
-        const component = await import('@/components/Form/InputCheckbox.vue');
-        expect(component).toBeDefined();
-
-        const wrapper = mount(component.default, {
-            global: {
-                components: { FontAwesomeIcon },
-            },
-            propsData: {
-                label: null,
-                value: false,
-            },
+        const wrapper = await factory({
+            label: null,
+            value: false,
         });
 
         expect(wrapper.find('[data-e2e="label"]').exists()).toBe(false);
