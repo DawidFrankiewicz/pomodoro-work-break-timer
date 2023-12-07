@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App.test.js > Should render correctly 1`] = `
+"<div data-v-938b83b0="" class="relative min-h-screen flex-grow bg-gray-100 bg-gradient-to-br from-gray-100 to-gray-200">
+  <timer-stub data-v-938b83b0="" config="[object Object]"></timer-stub>
+  <timer-settings-stub data-v-938b83b0="" defaultconfig="[object Object]"></timer-settings-stub>
+</div>"
+`;
