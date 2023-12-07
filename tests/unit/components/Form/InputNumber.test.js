@@ -11,6 +11,7 @@ test('Should render correctly', async () => {
         },
         propsData: {
             value: 0,
+            label: 'Test',
         },
     });
 
@@ -18,6 +19,7 @@ test('Should render correctly', async () => {
     // https://vitest.dev/guide/snapshot#updating-snapshots
     expect(wrapper.html()).toMatchSnapshot();
     // Check if all important elements are rendered
+    expect(wrapper.find('[data-e2e="label"]').exists()).toBe(true);
     expect(wrapper.find('[data-e2e="input"]').exists()).toBe(true);
     expect(wrapper.find('[data-e2e="increment"]').exists()).toBe(true);
     expect(wrapper.find('[data-e2e="decrement"]').exists()).toBe(true);
